@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fitness Coach · Biblioteca editable</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<header class="header">
+  <div class="container">
+    <div class="headerTop">
+      <div>
+        <h1>Fitness Coach · Biblioteca editable</h1>
+        <p class="subtitle">48 ejercicios independientes del PDF. Las imágenes son archivos separados y todo el contenido del catálogo se puede editar desde <code>js/exercises.js</code>.</p>
+      </div>
+      <div class="actions">
+        <button class="btn btnPrimary" onclick="openRoutineBuilder()">⚡ Rutina de hoy</button>
+        <button class="btn btnSoft" onclick="switchTab('routine')">📋 Mi rutina</button>
+      </div>
+    </div>
+    <div class="filters">
+      <input id="search" class="control search" placeholder="Buscar ejercicio, músculo, objetivo..." oninput="render()">
+      <select id="goal" class="control" onchange="render()">
+        <option value="">Todos los objetivos</option>
+        <option value="abdomen">Abdomen / core</option>
+        <option value="glúteos">Glúteos</option>
+        <option value="piernas">Piernas</option>
+        <option value="espalda">Espalda</option>
+        <option value="cuerpo">Cuerpo completo</option>
+      </select>
+      <select id="level" class="control" onchange="render()">
+        <option value="">Todos los niveles</option>
+        <option>Inicial</option><option>Intermedio</option><option>Avanzado</option><option>Por definir</option>
+      </select>
+      <select id="equipment" class="control" onchange="render()">
+        <option value="">Todo material</option>
+        <option>Peso corporal</option><option>Banco/caja</option><option>Mancuernas</option><option>Máquina</option><option>Por definir</option>
+      </select>
+      <button class="btn btnSoft" onclick="toggleFavorites()">⭐ Favoritos</button>
+    </div>
+  </div>
+</header>
+
+<nav class="tabs container">
+  <button class="tabBtn active" data-tab="library" onclick="switchTab('library')">🏋️ Biblioteca</button>
+  <button class="tabBtn" data-tab="routine" onclick="switchTab('routine')">📋 Mi rutina <span id="routineBadge"></span></button>
+</nav>
+
+<main class="container">
+  <section id="libraryPanel" class="tabPanel active">
+  <div class="notice">
+    <b>Estructura profesional:</b> cambia una foto reemplazando solamente su JPG en <code>assets/exercises/</code>.
+    Cambia nombre, músculos, series, repeticiones, técnica y demás campos en <code>js/exercises.js</code>.
+    <br><b>Nota de fuente:</b> el PDF es principalmente visual/escaneado; cuando el documento no aporta texto legible, el catálogo deja el campo editable en blanco o “Por definir” en lugar de inventar el dato.
+  </div>
+  <div class="stats">
+    <span class="pill"><b id="count">48</b> ejercicios visibles</span>
+    <span class="pill">🖼️ 48 imágenes independientes</span>
+    <span class="pill">✏️ Datos editables</span>
+    <span class="pill">⭐ Favoritos</span>
+    <span class="pill">📋 Rutina guardada</span>
+  </div>
+  <div id="grid" class="grid"></div>
+  </section>
+
+  <section id="routinePanel" class="tabPanel">
+    <div id="routineContent"></div>
+  </section>
+</main>
+
+<div id="overlay" class="overlay" onclick="if(event.target===this)closeModal()">
+  <div id="modal" class="modal"></div>
+</div>
+<div id="toast" class="toast"></div>
+
+<script src="js/exercises.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
